@@ -27,12 +27,11 @@ class Event:
 		# print soup.find_all('div','list-card__tags')
 		for ht in soup.find_all('div','list-card__tags'):
 			try:
-				for a_elem in ht.find_all('a'):
-					self.hashtag.append(a_elem.string.encode('UTF-8').strip())
+				[self.hashtag.append(a_elem.string.encode('UTF-8').strip()) for a_elem in ht.find_all('a')]
+					# self.hashtag.append(a_elem.string.encode('UTF-8').strip())
 			except:
 				break
-		# self.hashtag.append([ht.a.text.encode('UTF-8').strip() for ht in soup.find_all('div','list-card__tags')])
-		# print self.hashtag
+		print self.hashtag
 
 		# html = requests.get(self.url, headers=hdr)
 		# soup = BeautifulSoup(html.text, 'lxml')
