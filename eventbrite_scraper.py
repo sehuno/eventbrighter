@@ -17,15 +17,42 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
 
 class Event:
 	def __init__(self, soup):
-		print soup
-		# self.price = soup.find(
-		# self.title = soup.find('div', 'list-card__title').text.strip()
-		# print self.title
+		self.url = soup['data-share-url'].encode('UTF-8').strip()
+		self.title = soup['data-share-name'].encode('UTF-8').strip()
+		self.price = soup.a.div.span.string.encode('UTF-8').strip()
+		self.hashtag = []
+		# print soup.find_all('div','list-card__tags')
+		# for ht in soup.find_all('div','list-card__tags'):
+		# 	try:
+		# 		print ht.div.find_all('a').text.encode('UTF-8').strip()
+		# 	except:
+		# 		break
+		# print self.hashtag
+		# self.hashtag.append([ht.a.text.encode('UTF-8').strip() for ht in soup.find_all('div','list-card__tags')])
+		# print self.hashtag
+
+		# html = requests.get(self.url, headers=hdr)
+		# soup = BeautifulSoup(html.text, 'lxml')
+
+		# logistic = soup.find('div', 'list-card__body').time.string.encode('UTF-8').strip()
+		# venue = soup.find('div', 'list-card__venue').string.encode('UTF-8').strip()
+		# print venue
 		# self.date =
-		# self.time
-		# self.location
+		# self.time = logistic.split(' ')[22:24]
+		# self.time = Arrays.toString(logistic.split(' ')[22:24])
+		# self.time = logistic.split(' ')[22:24].toString().rstrip()
+		# print self.time
+		# print self.price + self.title
+
+		# self.location = venue.split(',')[-1].strip()
+		# self.organizer = venue.split(',')[0].strip()
+		# print self.location + " and by " + self.organizer
 		# self.price = soup.find(
 		# self.hashtag = []
+		print "%s\n\t%s\n\t%s\n" % (self.url, self.title, self.price)
+
+	# def print_self(self):
+	# 	print "%s\n\t%s\nt%s\n" % (self.url, self.title, self.price)
 
 # class SBIR_Awardee :
 # 	def __init__(self, link):
@@ -63,7 +90,7 @@ class Event:
 # 	file.close()
 
 def main(argv):
-	print "Build an eventbrite scraper!"
+	# print "Build an eventbrite scraper!"
 	# try:
 	#     connection = pymongo.MongoClient()
 	#     print "Connected successfully!!!"
@@ -71,11 +98,10 @@ def main(argv):
 	#    print "Could not connect to MongoDB: %s" % e
 	# connection
 
-
 	next_page_exists = True
 
-	# url = "https://www.eventbrite.com/d/ca--san-jose/events--this-week/"
-	url = "https://www.eventbrite.com/d/ca--san-jose/events--this-week/?crt=regular&page=43&sort=best"
+	url = "https://www.eventbrite.com/d/ca--san-jose/events--this-week/"
+	# url = "https://www.eventbrite.com/d/ca--san-jose/events--this-week/?crt=regular&page=43&sort=best"
 
 	while next_page_exists:
 		html = requests.get(url, headers=hdr)
