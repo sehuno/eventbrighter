@@ -17,12 +17,14 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
 
 class Event:
 	def __init__(self, soup):
-		self.title = soup.find('div', 'list-card__title').text.strip()
-		print self.title
-		# self.date
+		print soup
+		# self.price = soup.find(
+		# self.title = soup.find('div', 'list-card__title').text.strip()
+		# print self.title
+		# self.date =
 		# self.time
 		# self.location
-		# self.price
+		# self.price = soup.find(
 		# self.hashtag = []
 
 # class SBIR_Awardee :
