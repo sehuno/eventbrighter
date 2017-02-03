@@ -1,6 +1,7 @@
 #!/bin/python
 import os
 import re
+import pymongo
 import sys
 import lxml
 import requests
@@ -13,6 +14,16 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
    	'Accept-Language': 'en-US,en;q=0.8',
    	'Connection': 'keep-alive'
 }
+
+class Event:
+	def __init__(self, soup):
+		self.title = soup.find('div', 'list-card__title').text.strip()
+		print self.title
+		# self.date
+		# self.time
+		# self.location
+		# self.price
+		# self.hashtag = []
 
 # class SBIR_Awardee :
 # 	def __init__(self, link):
@@ -50,6 +61,30 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
 # 	file.close()
 
 def main(argv):
+	print "Build an eventbrite scraper!"
+	# try:
+	#     connection = pymongo.MongoClient()
+	#     print "Connected successfully!!!"
+	# except pymongo.errors.ConnectionFailure, e:
+	#    print "Could not connect to MongoDB: %s" % e
+	# connection
+
+
+	next_page_exists = True
+
+	# url = "https://www.eventbrite.com/d/ca--san-jose/events--this-week/"
+	url = "https://www.eventbrite.com/d/ca--san-jose/events--this-week/?crt=regular&page=43&sort=best"
+
+	while next_page_exists:
+		html = requests.get(url, headers=hdr)
+		soup = BeautifulSoup(html.text, 'lxml')
+		[Event(event_soup) for event_soup in soup.find_all('div','list-card-v2 l-mar-top-2 js-d-poster')]  # pass soup to event constructor
+
+		next_page_exists = False
+		# next_page_exists = soup.find('a','js-show-next is-disabled')
+		# print next_page_exists
+
+	# db = conn.mydb
 	# global awardees
 	# global year_limit_reached
 	# awardees = []
