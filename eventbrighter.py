@@ -36,7 +36,7 @@ class Event:
 		soup = BeautifulSoup(html.text, 'lxml')
 
 		try: # event organizer
-			self.organizer = soup.find('a', 'js-d-scroll-to listing-organizer-name text-default').encode('UTF-8').strip()
+			self.organizer = soup.find('a', 'js-d-scroll-to listing-organizer-name text-default').string.encode('UTF-8').strip()[3:]
 		except:
 			self.organizer = "N/A"
 
@@ -54,11 +54,12 @@ class Event:
 		except:
 			print "location N/A"
 
+		print self.__dict__
 		# other details that might be worth storing: image, description
-		self.print_self
+		# self.print_self
 
 	def print_self(self):
-		print "%s\n\t%s\nt%s\n" % (self.url, self.title, self.price)
+		print self.__dict__
 
 # class SBIR_Awardee :
 # 	def __init__(self, link):
