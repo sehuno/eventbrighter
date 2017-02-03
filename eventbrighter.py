@@ -54,19 +54,11 @@ class Event:
 		except:
 			print "location N/A"
 
-		# logistic = soup.find('div', 'list-card__body').time.string.encode('UTF-8').strip()
-		# venue = soup.find('div', 'list-card__venue').string.encode('UTF-8').strip()
-		# print venue
+		# other details that might be worth storing: image, description
+		self.print_self
 
-		# self.location = venue.split(',')[-1].strip()
-		# self.organizer = venue.split(',')[0].strip()
-		# print self.location + " and by " + self.organizer
-		# self.price = soup.find(
-		# self.hashtag = []
-		# print "%s\n\t%s\n\t%s\n" % (self.url, self.title, self.price)
-
-	# def print_self(self):
-	# 	print "%s\n\t%s\nt%s\n" % (self.url, self.title, self.price)
+	def print_self(self):
+		print "%s\n\t%s\nt%s\n" % (self.url, self.title, self.price)
 
 # class SBIR_Awardee :
 # 	def __init__(self, link):
