@@ -17,21 +17,19 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
 
 class Event:
 	def __init__(self, soup):
-		self.url = soup['data-share-url'].encode('UTF-8').strip()
-		self.title = soup['data-share-name'].encode('UTF-8').strip()
-		try:
+		self.url = soup['data-share-url'].encode('UTF-8').strip() # event url
+		self.title = soup['data-share-name'].encode('UTF-8').strip() # event title
+		try: # event price
 			self.price = soup.a.div.span.string.encode('UTF-8').strip()
 		except:
 			self.price = "N/A"
-		self.hashtag = []
-		# print soup.find_all('div','list-card__tags')
+
+		self.hashtag = [] # event hashtags
 		for ht in soup.find_all('div','list-card__tags'):
 			try:
 				[self.hashtag.append(a_elem.string.encode('UTF-8').strip()) for a_elem in ht.find_all('a')]
-					# self.hashtag.append(a_elem.string.encode('UTF-8').strip())
 			except:
 				break
-		print self.hashtag
 
 		# html = requests.get(self.url, headers=hdr)
 		# soup = BeautifulSoup(html.text, 'lxml')
