@@ -19,15 +19,18 @@ class Event:
 	def __init__(self, soup):
 		self.url = soup['data-share-url'].encode('UTF-8').strip()
 		self.title = soup['data-share-name'].encode('UTF-8').strip()
-		self.price = soup.a.div.span.string.encode('UTF-8').strip()
+		try:
+			self.price = soup.a.div.span.string.encode('UTF-8').strip()
+		except:
+			self.price = "N/A"
 		self.hashtag = []
 		# print soup.find_all('div','list-card__tags')
-		# for ht in soup.find_all('div','list-card__tags'):
-		# 	try:
-		# 		print ht.div.find_all('a').text.encode('UTF-8').strip()
-		# 	except:
-		# 		break
-		# print self.hashtag
+		for ht in soup.find_all('div','list-card__tags'):
+			try:
+				for a_elem in ht.find_all('a'):
+					self.hashtag.append(a_elem.string.encode('UTF-8').strip())
+			except:
+				break
 		# self.hashtag.append([ht.a.text.encode('UTF-8').strip() for ht in soup.find_all('div','list-card__tags')])
 		# print self.hashtag
 
@@ -49,7 +52,7 @@ class Event:
 		# print self.location + " and by " + self.organizer
 		# self.price = soup.find(
 		# self.hashtag = []
-		print "%s\n\t%s\n\t%s\n" % (self.url, self.title, self.price)
+		# print "%s\n\t%s\n\t%s\n" % (self.url, self.title, self.price)
 
 	# def print_self(self):
 	# 	print "%s\n\t%s\nt%s\n" % (self.url, self.title, self.price)
