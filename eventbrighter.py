@@ -31,19 +31,32 @@ class Event:
 			except:
 				break
 
+		# actually visit the event url to parse data
 		html = requests.get(self.url, headers=hdr)
 		soup = BeautifulSoup(html.text, 'lxml')
-		print soup.find('time', 'listing-hero-date')['datetime']
+
+		try: # event organizer
+			self.organizer = soup.find('a', 'js-d-scroll-to listing-organizer-name text-default').encode('UTF-8').strip()
+		except:
+			self.organizer = "N/A"
+
+		self.date = soup.find('time', 'listing-hero-date')['datetime'] # event date
+		try:
+			self.time = soup.find('time', 'clrfix').find_all('p')[1].string.encode('UTF-8').strip()	# event time
+			# MUST PERFORM CHECK OF DATE FORMAT TYPE
+		except:
+			self.time = "N/A"
+
+		self.location = [] # event location
+		try: #
+			children = soup.find_all('div', 'event-details__data')[1].find_all('p', recursive=False)
+			[self.location.append(child.string.encode('UTF-8').strip()) for child in children[:-1]]
+		except:
+			print "location N/A"
 
 		# logistic = soup.find('div', 'list-card__body').time.string.encode('UTF-8').strip()
 		# venue = soup.find('div', 'list-card__venue').string.encode('UTF-8').strip()
 		# print venue
-		# self.date =
-		# self.time = logistic.split(' ')[22:24]
-		# self.time = Arrays.toString(logistic.split(' ')[22:24])
-		# self.time = logistic.split(' ')[22:24].toString().rstrip()
-		# print self.time
-		# print self.price + self.title
 
 		# self.location = venue.split(',')[-1].strip()
 		# self.organizer = venue.split(',')[0].strip()
