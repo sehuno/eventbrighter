@@ -31,8 +31,9 @@ class Event:
 			except:
 				break
 
-		# html = requests.get(self.url, headers=hdr)
-		# soup = BeautifulSoup(html.text, 'lxml')
+		html = requests.get(self.url, headers=hdr)
+		soup = BeautifulSoup(html.text, 'lxml')
+		print soup.find('time', 'listing-hero-date')['datetime']
 
 		# logistic = soup.find('div', 'list-card__body').time.string.encode('UTF-8').strip()
 		# venue = soup.find('div', 'list-card__venue').string.encode('UTF-8').strip()
