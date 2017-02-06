@@ -59,8 +59,10 @@ class Event:
 
 		ret = coll.find({'url' : self.url })
 		if ret.count() != 0:
-			print "%s: %d" % (self.url, ret.count())
 			return
+			# print "%s: %d" % (self.url, ret.count())
+			# for doc in ret:
+				# print doc['title']
 
 		try:
 			self.title = soup['data-share-name'].encode('UTF-8').strip() # event title
@@ -105,9 +107,8 @@ class Event:
 			print "[ERROR] location N/A for %s" % self.title
 
 		coll.insert_one(self.__dict__)
-		print self.__dict__
+		# print self.__dict__
 		# other details that might be worth storing: image, description
-		# self.print_self
 
 def main(argv):
 	connectToDB()
